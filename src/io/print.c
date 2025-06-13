@@ -29,7 +29,6 @@ void printf(const char *format, ...)
                         }
                         break;
                     }
-
                 case 'd' :
                     {
                         int num = __builtin_va_arg(args, int);
@@ -52,10 +51,28 @@ void printf(const char *format, ...)
                         }
                         break;
                     }
+
+                case 'u' :
+                    {
+                        unsigned int num = __builtin_va_arg(args, unsigned int);
+                        char         buffer[20]; // Enough for 32-bit unsigned int
+                        char        *ptr = buffer + sizeof(buffer) - 1;
+                        *ptr             = '\0';
+                        do
+                        {
+                            *(--ptr)  = '0' + (num % 10);
+                            num      /= 10;
+                        } while (num);
+                        while (*ptr)
+                        {
+                            os_rta_hal_putchar(*ptr++);
+                        }
+                        break;
+                    }
                 case 'x' :
                     {
                         unsigned int num = __builtin_va_arg(args, unsigned int);
-                        char         buffer[20]; // Enough for 32-bit hex
+                        char         buffer[20]; // Enough for 64-bit hex
                         char        *ptr = buffer + sizeof(buffer) - 1;
                         *ptr             = '\0';
                         do
@@ -67,6 +84,43 @@ void printf(const char *format, ...)
                         while (*ptr)
                         {
                             os_rta_hal_putchar(*ptr++);
+                        }
+                        break;
+                    }
+                case 'X' :
+                    {
+                        unsigned int num = __builtin_va_arg(args, unsigned int);
+                        char         buffer[20]; // Enough for 64-bit hex
+                        char        *ptr = buffer + sizeof(buffer) - 1;
+                        *ptr             = '\0';
+                        do
+                        {
+                            unsigned int digit = num & 0xF;
+                            *(--ptr)           = (digit < 10) ? ('0' + digit) : ('A' + digit - 10);
+                            num >>= 4;
+                        } while (num);
+                        while (*ptr)
+                        {
+                            os_rta_hal_putchar(*ptr++);
+                        }
+                        break;
+                    }
+                case 'p' :
+                    {
+                        void         *ptr  = __builtin_va_arg(args, void *);
+                        unsigned long addr = (unsigned long)ptr;
+                        char          buffer[20]; // Enough for 64-bit hex
+                        char         *ptr_str = buffer + sizeof(buffer) - 1;
+                        *ptr_str              = '\0';
+                        do
+                        {
+                            unsigned int digit = addr & 0xF;
+                            *(--ptr_str)       = (digit < 10) ? ('0' + digit) : ('a' + digit - 10);
+                            addr >>= 4;
+                        } while (addr);
+                        while (*ptr_str)
+                        {
+                            os_rta_hal_putchar(*ptr_str++);
                         }
                         break;
                     }
