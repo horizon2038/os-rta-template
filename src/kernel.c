@@ -1,3 +1,5 @@
+#include <kernel.h>
+
 #include <hal/init.h>
 #include <hal/interrupt.h>
 #include <hal/put_char.h>
@@ -5,6 +7,8 @@
 #include <hal/uart.h>
 
 #include <io/print.h>
+
+#include <hal/rv64/platform/device_tree.h>
 
 static void os_rta_handle_timer(void)
 {
@@ -47,17 +51,28 @@ static void kernel_init(void)
     KERNEL_LOG("KERNEL initialized successfully.");
 }
 
-void kernel_main(void)
+static word fdt_base = 0;
+
+int os_rta_kernel_main(word a, word b, word c, word d)
 {
+    fdt_base = b;
     printf("%s", os_rta_logo);
     KERNEL_LOG("start OS RTA Kernel!");
+    KERNEL_LOG("kernel main called with args: 0x%x, 0x%x, 0x%x, 0x%x", a, b, c, d);
 
     hal_init();
     kernel_init();
 
+    KERNEL_LOG("Device Tree Base Address: 0x%x", fdt_base);
+    parse_dtb(fdt_base);
+
+    /*
     for (;;)
     {
         // char c = os_rta_hal_input_char();
         // printf("%c", c);
     }
+    */
+
+    return 0;
 }

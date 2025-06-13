@@ -3,7 +3,8 @@
 
 _start:
     la sp, kernel_stack_top
-    call kernel_main
+    .extern os_rta_rv64_c_entry
+    call os_rta_rv64_c_entry
 
 _hlt:
     wfi
