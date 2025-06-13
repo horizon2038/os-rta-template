@@ -21,6 +21,14 @@ static void os_rta_handle_kernel_call(sword irq)
     KERNEL_LOG("kernel call %d!\n", irq);
 }
 
+const char os_rta_logo[]
+    = "  ___  ____        ____ _____  _    \n"
+      " / _ \\/ ___|      |  _ \\_   _|/ \\   \n"
+      "| | | \\___ \\ _____| |_) || | / _ \\  \n"
+      "| |_| |___) |_____|  _ < | |/ ___ \\ \n"
+      " \\___/|____/      |_| \\_\\|_/_/   \\_\\\n"
+      "                                    \n";
+
 static void hal_init(void)
 {
     KERNEL_LOG("initializing HAL...");
@@ -41,6 +49,7 @@ static void kernel_init(void)
 
 void kernel_main(void)
 {
+    printf("%s", os_rta_logo);
     KERNEL_LOG("start OS RTA Kernel!");
 
     hal_init();
