@@ -8,7 +8,7 @@ LD     = clang
 
 # C compiler flags
 # --target is crucial for cross-compiling
-CFLAGS  = --target=riscv64-unknown-elf -Wall -Wextra -std=c11 -ffreestanding -nostdlib -O0 -ggdb -mcmodel=medany -Iinclude
+CFLAGS  = --target=riscv64-unknown-elf -Wall -Wextra -std=c23 -ffreestanding -nostdlib -O0 -ggdb -mcmodel=medany -Iinclude
 
 # Linker flags
 # Pass linker-specific flags using -Wl,
