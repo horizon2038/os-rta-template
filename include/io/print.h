@@ -22,13 +22,7 @@
 #define HAL_LOG(fmt, ...) \
     do \
     { \
-        printf( \
-            COLOR_YELLOW "[   HAL] " COLOR_RESET LOG_ALIGN fmt "\r\n", \
-            __func__, \
-            __FILE__, \
-            __LINE__, \
-            ##__VA_ARGS__ \
-        ); \
+        printf(COLOR_YELLOW "[   HAL] " COLOR_RESET LOG_ALIGN fmt "\r\n", ##__VA_ARGS__); \
     } while (0)
 
 #define DEBUG_LOG(fmt, ...) \
