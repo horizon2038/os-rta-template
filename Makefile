@@ -28,7 +28,7 @@ DEPS   := $(OBJS:.o=.d)
 
 # QEMU settings
 QEMU       ?= qemu-system-riscv64
-QEMU_FLAGS ?= -machine virt -nographic -bios default -smp 1 -m 128M -serial mon:stdio --no-shutdown --no-reboot
+QEMU_FLAGS ?= -machine virt -nographic -bios ./firmware/fw_jump.bin -smp 1 -m 4G -serial mon:stdio --no-shutdown --no-reboot
 
 # Phony targets
 .PHONY: all clean run debug

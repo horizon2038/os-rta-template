@@ -37,7 +37,6 @@ static void hal_init(void)
 {
     KERNEL_LOG("initializing HAL...");
     os_rta_hal_init();
-    os_rta_hal_uart_init(115200);
     os_rta_hal_timer_init(os_rta_handle_timer);
     os_rta_hal_interrupt_init();
     os_rta_hal_interrupt_register_handler(os_rta_handle_interrupt);
@@ -51,28 +50,15 @@ static void kernel_init(void)
     KERNEL_LOG("KERNEL initialized successfully.");
 }
 
-static word fdt_base = 0;
-
 int os_rta_kernel_main(word a, word b, word c, word d)
 {
-    fdt_base = b;
     printf("%s", os_rta_logo);
     KERNEL_LOG("start OS RTA Kernel!");
     KERNEL_LOG("kernel main called with args: 0x%x, 0x%x, 0x%x, 0x%x", a, b, c, d);
+    KERNEL_LOG("kernel_main: 0x%x\n", (void *)os_rta_kernel_main);
 
     hal_init();
     kernel_init();
-
-    KERNEL_LOG("Device Tree Base Address: 0x%x", fdt_base);
-    parse_dtb(fdt_base);
-
-    /*
-    for (;;)
-    {
-        // char c = os_rta_hal_input_char();
-        // printf("%c", c);
-    }
-    */
 
     return 0;
 }

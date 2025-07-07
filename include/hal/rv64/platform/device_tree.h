@@ -1,5 +1,5 @@
-#ifndef OS_RTA_RV64_DEBICE_TREE_H
-#define OS_RTA_RV64_DEBICE_TREE_H
+#ifndef OS_RTA_RV64_DEVICE_TREE_H
+#define OS_RTA_RV64_DEVICE_TREE_H
 
 #include <types.h>
 
@@ -20,6 +20,18 @@ struct fdt_header
     uint32_t size_dt_strings;   // size of the strings section
     uint32_t size_dt_struct;    // size of the device tree structure
 } __attribute__((packed));
+
+struct reserved_memory
+{
+    uint64_t address; // start address of the reserved memory region
+    uint64_t size;    // size of the reserved memory region
+} __attribute__((packed));
+
+#define FDT_BEGIN_NODE 0x00000001U
+#define FDT_END_NODE 0x00000002U
+#define FDT_PROP 0x00000003U
+#define FDT_NOP 0x00000004U
+#define FDT_END 0x00000009U
 
 void parse_dtb(uintptr_t fdt_base);
 

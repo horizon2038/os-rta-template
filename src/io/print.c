@@ -72,7 +72,7 @@ void printf(const char *format, ...)
                 case 'x' :
                     {
                         unsigned int num = __builtin_va_arg(args, unsigned int);
-                        char         buffer[20]; // Enough for 64-bit hex
+                        char         buffer[16]; // Enough for 64-bit hex
                         char        *ptr = buffer + sizeof(buffer) - 1;
                         *ptr             = '\0';
                         do
@@ -90,7 +90,7 @@ void printf(const char *format, ...)
                 case 'X' :
                     {
                         unsigned int num = __builtin_va_arg(args, unsigned int);
-                        char         buffer[20]; // Enough for 64-bit hex
+                        char         buffer[16]; // Enough for 64-bit hex
                         char        *ptr = buffer + sizeof(buffer) - 1;
                         *ptr             = '\0';
                         do
